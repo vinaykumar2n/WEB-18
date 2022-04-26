@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend</title>
+    <style>
+        body>div:first-child{
+            width: 25%;
+            padding: 30px;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            margin: 30px auto;
+        }
+        label{
+            font-size: 18px;
+        }
+        input{
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        input[type="submit"]{
+            background-color: blueviolet;
+            margin-top: 7px;
+            border: 0;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 7px;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form>
+            <label for="">Name:</label><br>
+            <input type="text" id="name" placeholder="Enter the name"><br>
+            <label for="">Investors Image:</label><br>
+            <input type="url" id="image" placeholder="Enter the image URL"><br>
+            <label for="">Role:</label><br>
+            <input type="text" id="role" placeholder="Enter the investor's role"><br>
+            <label for="">Company Logo:</label><br>
+            <input type="url" id="logo" placeholder="Enter the Logo URL"><br>
+            <input type="submit">
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+    var dataArr;
+    document.querySelector("form").addEventListener("submit",datafun);
+    dataArr= JSON.parse(localStorage.getItem("InvestorData")) || [];
+    function datafun(){
+        event.preventDefault()
+        var invname=document.querySelector("#name").value;
+        var invimage=document.querySelector("#image").value;
+        var invrole=document.querySelector("#role").value;
+        var invlogo=document.querySelector("#logo").value;
+
+        var dataObj={name: invname, avatar: invimage, role:invrole, logo: invlogo};
+
+        dataArr.push(dataObj);
+        console.log(dataArr)
+
+        localStorage.setItem("InvestorData",JSON.stringify(dataArr));
+    }
+    
+
+</script>

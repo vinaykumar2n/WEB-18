@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+    var details= JSON.parse(localStorage.getItem("InvestorData"))
+
+    var heading=document.createElement("h1");
+    heading.innerText="Strategic Investors"
+    heading.style.margin="40px auto"
+    heading.style.textAlign="center"
+    document.querySelector("body").append(heading)
+    var gridcont=document.createElement("div");
+    gridcont.setAttribute("id","container");
+    gridcont.style.display="grid"
+    gridcont.style.gridTemplateColumns="repeat(4,1fr)";
+    gridcont.style.gridTemplateRows="auto";
+    gridcont.style.justifyContent="space-around"
+    gridcont.style.textAlign="center"
+    gridcont.style.gap="20px"
+    gridcont.style.width="98%"
+    gridcont.style.margin="auto"
+    document.querySelector("body").append(gridcont)
+
+    details.forEach(function(el){
+        var box=document.createElement("div");
+        var image=document.createElement("img");
+        image.setAttribute("src",el.avatar);
+        image.style.width="100%"
+        box.append(image)
+
+        var personname=document.createElement("h2")
+        personname.innerText=el.name
+        personname.style.margin="7px auto"
+        box.append(personname)
+
+        var position=document.createElement("p")
+        position.innerText=el.role
+        position.style.color="gray"
+        position.style.margin="0px auto"
+        box.append(position)
+
+        var logoimg=document.createElement("img")
+        logoimg.setAttribute("src",el.logo)
+        logoimg.style.width="50%"
+        box.append(logoimg)
+        box.style.boxShadow= "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px";
+        box.style.borderBottomLeftRadius="10px"
+        box.style.borderBottomRightRadius="10px"
+        gridcont.append(box)
+    })
+
+</script>
