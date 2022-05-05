@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>womens</title>
+    <link rel="stylesheet" href="navbarstyles.css">
+    <link rel="stylesheet" href="mens,womens,homestyles.css">
+    <script src="https://kit.fontawesome.com/06a1a96c9d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="navbar">
+        <div>Reebok</div>
+        <div>
+            <div id="homepage"><a href="index.html">Home</a></div>
+            <div id="menspage"><a href="mens.html">Mens</a></div>
+            <div id="womenspage"><a href="womens.html">Womens</a></div>
+            <div id="username"><i class="fa-solid fa-user"></i><span></span></div>
+            <div id="cart"><a href="cart.html">Cart</a></div>
+        </div>
+    </div>
+    <div id="container"></div>
+</body>
+</html>
+<script src="data_from_backend.js"></script>
+<script>
+var womensData=JSON.parse(localStorage.getItem("womensData"))
+
+var signupDetails=JSON.parse(localStorage.getItem("signupDetails"))
+document.querySelector("#username>span").innerText=signupDetails.name
+
+var cartData=JSON.parse(localStorage.getItem("cartData")) || []
+
+display(womensData)
+function display(items){
+    document.querySelector("#container").innerHTML=""
+    items.map(function(el){
+        var box=document.createElement("div");
+        box.setAttribute("id","boxes")
+
+        var boximage=document.createElement("img")
+        boximage.setAttribute("src",el.image_url)
+
+        var boxname=document.createElement("div")
+        boxname.setAttribute("id","nameofpro")
+        var htag=document.createElement("h4")
+        htag.setAttribute("id","prodname")
+        htag.innerText=el.name;
+        
+        boxname.append(htag)
+
+        var boxpricediv=document.createElement("div");
+        boxpricediv.style.display="flex"
+        
+        var boxprice=document.createElement("p");
+        boxprice.innerHTML=`Rs.`
+        var amount=document.createElement("span");
+        amount.innerText=el.price
+        boxprice.append(amount)
+
+        var strike=document.createElement("p");
+        strike.innerHTML=`Rs.`;
+        strike.style.textDecoration="line-through"
+        strike.style.marginLeft="30px"
+
+        var st=document.createElement("span");
+        st.innerText=el.strikedoffprice;
+        strike.append(st)
+
+        var cartbtn=document.createElement("button");
+        cartbtn.setAttribute("id","cartbutton")
+        cartbtn.innerText="Add to cart"
+        cartbtn.addEventListener("click",function(){
+            cartfunction(el);
+        })
+        boxpricediv.append(boxprice,strike);
+
+        box.append(boximage,boxname,boxpricediv,cartbtn);
+
+        document.querySelector("#container").append(box);
+    })
+    
+}
+var c;
+function cartfunction(el){
+    c=cartData.find(ele => el.uniqueid==ele.uniqueid)
+        console.log(c)
+        if(c)
+        {
+            alert("Already added to cart")
+        }
+        else{
+            cartData.push(el);
+        localStorage.setItem("cartData",JSON.stringify(cartData)) 
+        }
+} 
+</script>

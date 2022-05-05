@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="navbarstyles.css">
+    <link rel="stylesheet" href="mens,womens,homestyles.css">
+    <style>
+        #container{
+            width: 50%;
+            margin: auto;
+            margin-top: 60px;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/06a1a96c9d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="navbar">
+        <div>Reebok</div>
+        <div>
+            <div id="homepage"><a href="index.html">Home</a></div>
+            <div id="menspage"><a href="mens.html">Mens</a></div>
+            <div id="womenspage"><a href="womens.html">Womens</a></div>
+            <div id="username"><i class="fa-solid fa-user"></i><span></span></div>
+            <div id="cart"><a href="cart.html">Cart</a></div>
+        </div>
+    </div>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+    var signupDetails=JSON.parse(localStorage.getItem("signupDetails"))
+    document.querySelector("#username>span").innerText=signupDetails.name
+    var homepageData=[{
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GQ8758/reebok_GQ8758_1.jpg.plp",
+      name: "Mens products",
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GT2338/reebok_GT2338_1.jpg.plp",
+      name: "Womens products",
+    }]
+
+    display(homepageData)
+    function display(items){
+        document.querySelector("#container").innerHTML=""
+        items.map(function(el){
+            var box=document.createElement("div");
+
+            var boximage=document.createElement("img")
+            boximage.setAttribute("src",el.image_url)
+
+            var boxname=document.createElement("h4")
+            boxname.innerText=el.name;
+            boxname.style.textAlign="center"
+            box.style.cursor="pointer"
+            
+            box.append(boximage,boxname);
+            box.addEventListener("click",function(){
+                redirection(el)
+            })
+
+            document.querySelector("#container").append(box);
+        })
+        
+    }
+    function redirection(el){
+        if(el.name=="Mens products") window.location.href="mens.html"
+        else window.location.href="womens.html"
+    }
+</script>

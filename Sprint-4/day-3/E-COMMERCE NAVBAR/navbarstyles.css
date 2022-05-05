@@ -1,0 +1,28 @@
+
+#navbar{
+    color: white;
+    padding: 14px;
+    background-color: rgb(56, 56, 95);
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+#navbar>div:last-child{
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+}
+#navbar>div:first-child{
+    margin-left: 20px;
+}
+#navbar>div>div{
+    cursor: pointer;
+}
+#navbar a{
+    text-decoration: none;
+    color: white;
+}
+#username>span{
+    margin-left: 10px;
+}

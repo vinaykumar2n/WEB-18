@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="navbarstyles.css">
+    <link rel="stylesheet" href="login,signupstyle.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <div>Reebok</div>
+        <div>
+            <div id="menspage">Mens</div>
+            <div id="womenspage">Womens</div>
+            <div id="loginpage"><a href="login.html">Login</a></div>
+            <div id="signuppage"><a href="signUp.html">SignUp</a></div>
+        </div>
+    </div>
+    <div>
+        <h2>Login</h2>
+        <form id="form">
+            <input type="email" id="formemail" placeholder="Enter Email address"><br>
+            <input type="password" id="formpassword" placeholder="Enter password"><br>
+            <input type="submit" id="submit">
+        </form>
+        <p>Don't have an account! <a href="signUp.html">Signup</a></p>
+    </div>
+</body>
+</html>
+<script>
+    var signupDetails=JSON.parse(localStorage.getItem("signupDetails"))
+    
+    document.querySelector("#form").addEventListener("submit",loginfunction)
+
+    function loginfunction(){
+        event.preventDefault();
+        var loginemail= form.formemail.value;
+        var loginpassword=form.formpassword.value;
+        var realuser=false;
+        if(loginemail == signupDetails.email){
+            realuser=true;
+            if(loginemail == signupDetails.email && loginpassword == signupDetails.password){
+                window.location.href="homepage.html"
+            }
+            else{
+                    alert("Wrong Credentials!")
+                    window.location.reload()
+            }
+            }
+        else if(realuser==false){
+                alert("Account not found! Please Signup")
+                window.location.href="signUp.html"
+        }
+    }
+</script>

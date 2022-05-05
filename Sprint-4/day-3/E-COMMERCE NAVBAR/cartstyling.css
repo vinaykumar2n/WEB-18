@@ -1,0 +1,56 @@
+#container{
+    width: 70%;
+    margin: auto;
+}
+#container>div{
+    border-radius: 15px;
+    margin: 20px;
+    padding: 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+img{
+    width: 30%;
+    margin-left: 0;
+    margin-right: 20px;
+}
+#quantity{
+    display: flex;
+    width: 180px;
+    justify-content: space-between;
+    align-items: center;
+}
+#quantity>button{
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 3px;
+    color:white;
+    background-color: rgb(56, 56, 95);
+}
+#delbutton{
+    width: 180px;
+    padding: 7px;
+    border-radius: 5px;
+    border: 0;
+    background-color: rgb(56, 56, 95);
+    color: white;
+}
+#delbutton:hover,#quantity>button:hover{
+    cursor: pointer;
+    background-color: rgb(81, 81, 130);
+}
+#applypromo{
+    border-radius: 5px;
+    border: 0;
+    padding: 7px;
+    background-color: rgb(56, 56, 95);
+    color: white;
+}
+#discount>input{
+    border: 1px solid gray;
+    padding: 7px;
+}
+#discount{
+    text-align: center;
+}
+
