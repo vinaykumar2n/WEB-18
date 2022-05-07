@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="navbarstyles.css">
+    <link rel="stylesheet" href="cartstyling.css">
+    <style>
+        body>#cartbox{
+        display: flex;
+        justify-content: space-between;
+      }
+      #cartbox>h1+h1{
+        margin-right: 150px;
+      }
+    </style>
+    <script src="https://kit.fontawesome.com/06a1a96c9d.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div id="navbar">
+        <div>Reebok</div>
+        <div>
+          <div id="homepage"><a href="homepage.html">Home</a></div>
+          <div id="menspage"><a href="mens.html">Mens</a></div>
+          <div id="womenspage"><a href="womens.html">Womens</a></div>
+          <div id="username"><i class="fa-solid fa-user"></i><span></span></div>
+          <div id="cart"><a href="cart.html">Cart</a></div>
+        </div>
+    </div>
+    <div id="cartbox">
+        <h1>Cart Items: <span id="itemscount"></span></h1>
+        <h1>Total: Rs.<span id="carttotal"></span></h1>
+      </div>
+      <div id="container"></div>
+      <div id="discount">
+      </div>
+</body>
+</html>
+<script>
+
+var signupDetails=JSON.parse(localStorage.getItem("signupDetails"))
+document.querySelector("#username>span").innerText=signupDetails.name
+
+var cartData=JSON.parse(localStorage.getItem("cartData")) || []
+
+var cartquantity= JSON.parse(localStorage.getItem("cartquantity")) || []
+
+display(cartData)
+  function display(items){
+    document.querySelector("#container").innerHTML=""
+    items.map(function(el,i){
+      var card=document.createElement("div");
+      card.style.display="flex"
+      
+      
+      var image=document.createElement("img");
+      image.setAttribute("src",el.image_url);
+
+      var besideimage=document.createElement("div");
+
+      var name=document.createElement("h4");
+      name.innerText=el.name;
+
+      var pricediv=document.createElement("div");
+      pricediv.style.display="flex"
+      pricediv.style.alignItems="center"
+      
+      var price=document.createElement("h2");
+      price.innerHTML=`Rs.`  
+      var amount=document.createElement("span");
+      amount.innerText=el.price
+      price.append(amount)
+
+
+      var strike=document.createElement("p");
+      strike.innerHTML=`Rs.`;
+      strike.style.textDecoration="line-through"
+      strike.style.marginLeft="30px"
+
+      var st=document.createElement("span");
+      st.innerText=el.strikedoffprice;
+      strike.append(st)
+
+      var quantity=document.createElement("div");
+      quantity.setAttribute("id","quantity")
+      var minus=document.createElement("button")
+      minus.innerText="-";
+      minus.addEventListener("click",function(){
+        decfun(el,i)
+      })
+
+      var actualquantity=document.createElement("p");
+      actualquantity.innerText=el.quantity
+
+      var plus=document.createElement("button");
+      plus.innerText="+"
+      plus.addEventListener("click",function(){
+        incfun(el,i)
+      })
+      
+      quantity.append(minus,actualquantity,plus)
+
+      var deletebtn=document.createElement("button");
+      deletebtn.setAttribute("id","delbutton")
+      deletebtn.innerText="Remove Item";
+      deletebtn.addEventListener("click",function(){
+        deletefun(el,i)
+      })
+
+      pricediv.append(price,strike);
+
+      besideimage.append(name,pricediv,quantity,deletebtn)
+
+      card.append(image,besideimage);
+
+      document.querySelector("#container").append(card)
+    })
+  }
+
+  function deletefun(el,i){
+    cartData.splice(i,1)
+    localStorage.setItem("cartData",JSON.stringify(cartData))
+    window.location.reload()
+  }
+
+  function decfun(el,i){
+    if(el.quantity>1)
+    el.quantity--;
+    else if(el.quantity == 1) deletefun(el,i)
+    localStorage.setItem("cartData",JSON.stringify(cartData))
+    window.location.reload()
+  }
+  function incfun(el,i){
+    if(el.quantity>=1)
+    el.quantity++;
+    localStorage.setItem("cartData",JSON.stringify(cartData))
+    window.location.reload()
+  }
+
+var total,itemscount;
+var appliedornot=JSON.parse(localStorage.getItem("appliedornot"))  || 0;
+console.log(appliedornot)
+if(cartData.length<1){
+  appliedornot=0;
+  localStorage.setItem("appliedornot",appliedornot)
+}
+localStorage.setItem("appliedornot",appliedornot)
+
+if(appliedornot === 1)
+{
+  console.log(appliedornot)
+  total= cartData.reduce(function(acc,el){
+    return acc+(el.price*el.quantity)
+  },0)
+  total= Math.floor(total*0.7)
+  localStorage.setItem("totalamt",total);
+  discounttotal(total,itemscount)
+  itemscount=cartData.reduce(function(ac,el){
+    return ac+1
+  },0)
+}
+else{
+  console.log("here")
+  total= cartData.reduce(function(acc,el){
+    return acc+(el.price*el.quantity)
+  },0)
+
+  itemscount=cartData.reduce(function(ac,el){
+    return ac+1
+  },0)
+}
+  
+discounttotal(total,itemscount)
+  
+if(cartData.length>0)
+{
+  document.querySelector("#discount").innerHTML=`<h1>Get discount</h1>
+        <input type="text" id="promo">
+        <button id="applypromo">Apply promo</button>
+        <a href="paymentpage.html"><button id="payment">Proceed to pay</button></a>`
+}
+
+localStorage.setItem("totalamt",JSON.stringify(total));
+
+function discounttotal(total,itemscount){
+  document.querySelector("#carttotal").innerText=total
+  document.querySelector("#itemscount").innerText=itemscount
+}
+  document.querySelector("#applypromo").addEventListener("click",myfun)
+  
+  function myfun(){
+    var enteredpromo=document.querySelector("#discount>input").value;
+    console.log(appliedornot)
+    appliedornot=localStorage.getItem("appliedornot")
+    if(enteredpromo==="masai30" && appliedornot==0)
+    {
+      appliedornot=1;
+      localStorage.setItem("appliedornot",appliedornot)
+      total=localStorage.getItem("totalamt")
+      total= Math.floor(total*0.7)
+      localStorage.setItem("totalamt",total);
+      discounttotal(total,itemscount)
+      alert("Promo applied successfully!")
+    }
+    else if(appliedornot==1){
+      alert("Promo already applied!")
+    }
+    else
+    {
+      alert("Wrong Promocode!")
+      window.location.reload()
+    }
+  }
+</script>

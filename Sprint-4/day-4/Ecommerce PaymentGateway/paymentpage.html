@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="navbarstyles.css">
+    <link rel="stylesheet" href="login,signupstyle.css">
+</head>
+<body>
+    <div id="navbar">
+        <div>Reebok</div>
+        <div>
+            <div id="homepage"><a href="homepage.html">Home</a></div>
+            <div id="menspage"><a href="mens.html">Mens</a></div>
+            <div id="womenspage"><a href="womens.html">Womens</a></div>
+            <div id="username"><i class="fa-solid fa-user"></i><span></span></div>
+            <div id="cart"><a href="cart.html">Cart</a></div>
+        </div>
+    </div>
+    <div>
+        <h2>Secured Payment</h2>
+        <form id="form">
+            <input type="number" id="cardnum" placeholder="Enter card number"><br>
+            <input type="password" id="cvv" maxlength="3" placeholder="CVV">
+            <input type="date" id="date" min="2022-01-01" max="2029-01-01" placeholder="Expiry Date"><br>
+            <input type="text" id="name" placeholder="Enter your name"><br>
+            <input type="submit" id="submit">
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    document.querySelector("#form").addEventListener("submit",payfunction);
+    document.querySelector("#username>span").innerText=signupDetails.name
+
+    function payfunction(){
+        event.preventDefault();
+        var paymentdetails={
+            cardnumber:form.cardnum.value,
+            cvv:form.cvv.value,
+            date:form.date.value,
+            name:form.name.value
+            }
+        localStorage.setItem("paymentDetails",JSON.stringify(paymentdetails));
+        if(paymentdetails.cardnumber==123456789 && paymentdetails.cvv==123 && paymentdetails.date!="" && paymentdetails.name!="")
+        {
+            window.location.href="otp.html"
+        }
+        else alert("Wrong card details!")
+    }
+</script>

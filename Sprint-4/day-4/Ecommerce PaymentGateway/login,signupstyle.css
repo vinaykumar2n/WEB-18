@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+}
+#navbar+div{
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    width: 30%;
+    padding:1% 3%;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+    border-radius: 15px;
+}
+#form>input{
+    width: 100%;
+    padding: 3%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 7px auto;
+}
+#submit{
+    background-color: rgb(56, 56, 95);
+    color: white;
+    font-size: 18px;
+}
+#form+p{
+    margin: 4px auto 5px auto;
+    font-size: 15px;
+}
+a{
+    text-decoration: none;
+    color: rgb(56, 56, 95);
+}

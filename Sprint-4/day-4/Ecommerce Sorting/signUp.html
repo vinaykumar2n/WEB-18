@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="navbarstyles.css">
+    <link rel="stylesheet" href="login,signupstyle.css">
+</head>
+<body>
+    <div id="navbar">
+        <div>Reebok</div>
+        <div>
+            <div id="menspage">Mens</div>
+            <div id="womenspage">Womens</div>
+            <div id="loginpage"><a href="login.html">Login</a></div>
+            <div id="signuppage"><a href="signUp.html">SignUp</a></div>
+        </div>
+    </div>
+    <div>
+        <h2>Sign-up</h2>
+        <form id="form">
+            <input type="text" id="formname" placeholder="Enter your name"><br>
+            <input type="email" id="formemail" placeholder="Enter Email address"><br>
+            <input type="tel" id="formphone" placeholder="Enter mobile number"><br>
+            <input type="password" id="formpassword" placeholder="Set password"><br>
+            <input type="submit" id="submit">
+        </form>
+        <p>Already have an account! <a href="login.html">Login</a></p>
+    </div>
+</body>
+</html>
+<script>
+    document.querySelector("#form").addEventListener("submit",signupfunction);
+
+
+    function signupfunction(){
+        event.preventDefault();
+        var signupDetails={
+            name:form.formname.value,
+            email:form.formemail.value,
+            mobile:form.formphone.value,
+            password:form.formpassword.value
+            }
+        localStorage.setItem("signupDetails",JSON.stringify(signupDetails));
+        window.location.href="login.html"
+    }
+</script>
